@@ -168,3 +168,29 @@ doMutations <- function(poblation, percent){
   }
   return(poblation)
 }
+
+evaluate <- function(p, instance){
+  value <- NULL
+  for(i in 1:nrow(p)){
+    value[i] <- evaluarQAP(as.numeric(p[i,]),instance$f, instance$d)
+  }
+  p <- cbind(p, value)
+  return(p)
+}
+
+selection <- function(p, q, instance, size){
+  numberQ <- as.integer(0.7*size)
+  numberP <- as.integer(0.3*size)
+  p <- evaluate(p, instance)
+  q <- evaluate(q, instance)
+  topq <- head(q[order(q$value , decreasing=FALSE), ], numberQ)
+  topp <- head(p[order(p$value, decreasing=FALSE), ], numberP)
+  colnames(topq) <- colnames(topp)
+  rownames(topq) <- NULL
+  rownames(topp) <- NULL
+  
+  top <- rbind(topq, topp)
+  top$value <- NULL
+  rownames(top) <- NULL
+  return(top)
+}
