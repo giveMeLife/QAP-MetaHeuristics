@@ -1,3 +1,0 @@
-[1] "esc64a.txt"                     "evolutive"                     
-[3] "6"                              "/home/jarredondo/projects/QAP/"
-[1] 1

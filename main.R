@@ -21,7 +21,7 @@ sol <- sample(sol)
 
 
 pid = Sys.getpid()
-command = paste("psrecord", pid, "--log", paste0("logs/monitor/", file, "_", metaheuristic, "_", iteration,".txt"), "--plot", paste0("logs/", file, "_", iteration,".png"),"--interval 1")
+command = paste("psrecord", pid, "--log", paste0("logs/monitor/", file, "_", metaheuristic, "_", iteration,".txt"), "--plot", paste0("logs/", file, "_", metaheuristic, "_", iteration,".png"),"--interval 1")
 system(command, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = FALSE, input = NULL)
 
 
@@ -38,7 +38,7 @@ if (metaheuristic == "SA") {
 #e <- simulatedAnnealing(instancia, sol, tmax, tmin, it, beta, iteration = i, prefix = file)
 end_time = Sys.time()
 total_time = end_time - start_time
-
+total_time = as.numeric(total_time, units = "secs")
 
 output_file = paste0(workdir, "output/results/", file, "_", iteration, "_", metaheuristic, ".csv")
 
