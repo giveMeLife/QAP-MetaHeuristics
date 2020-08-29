@@ -1,17 +1,22 @@
 
-simulatedAnnealing <- function(instancia, sol, Tmax, Tmin, it, beta){
+simulatedAnnealing <- function(instancia, sol, Tmax, Tmin, it, beta, prefix="", iteration=0){
   T <- Tmax
   actualSolution <- sol 
   actualCost <- evaluarQAP(actualSolution, instancia$f, instancia$d)
   n = 1
   k = 1
   costs <- NULL
+  space <- data.frame()
   while(T > Tmin){
     for(i in 1:it){
       x <- sample(1:instancia$n, 2, replace=F)
       neighbor <- swap(actualSolution,x[1], x[2])
       cost <- evaluarQAP(neighbor, instancia$f, instancia$d)
       delta_E <- cost - actualCost
+      
+      space <- rbind(space, c(n, actualCost, actualSolution))
+      space <- rbind(space, c(neighbor, n, cost))
+      
       if(delta_E <= 0){
         actualCost <- cost
         actualSolution <- neighbor
@@ -32,7 +37,7 @@ simulatedAnnealing <- function(instancia, sol, Tmax, Tmin, it, beta){
     print(T)
     n <- n + 1
   }
-  plot(costs)
-  print(actualCost)
-  return(invisible(actualSolution))
+  write.table(costs, paste0(workdir, "output/bests/sa_", prefix,"_", iteration, ".csv"), sep = ";", row.names = F)
+  write.table(space, paste0(workdir, "output/space/sa_", prefix, "_space_", iteration, ".csv"), sep=";", row.names = F)
+  return(invisible(actualCost))
 }
