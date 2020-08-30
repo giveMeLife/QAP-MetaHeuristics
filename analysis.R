@@ -1,6 +1,6 @@
 library("ggpubr")
 # bur26a.dat Chr12a.dat esc64a.txt kra32.dat)
-file = "esc64a.txt"
+file = "Chr12a.dat"
 
 
 ev = data.frame()
@@ -26,7 +26,8 @@ data$V3 = as.numeric(gsub(",", ".", data$V3))
 data$V2 = as.numeric(gsub(",", ".", data$V2))
 
 
-summary(data[data$met == "Evolutive", ]$V2)
+summary(data[data$met == "Simulated Annealing", ]$V3)
+summary(data[data$met == "Evolutive", ]$V3)
 
 
 
@@ -58,7 +59,7 @@ min(data$V2)
 
 
 bests.sa = data.frame()
-for (i in 68) {
+for (i in 101) {
   my_file = paste0("output/bests/sa_", file, "_", i,".csv")
   aux = t(read.table(my_file, sep = ";", dec = "."))
   aux = aux[2:length(aux)]
@@ -76,7 +77,7 @@ ggscatter(bests.sa,
 
 
 bests.ev = data.frame()
-for (i in 66) {
+for (i in c(1:101)) {
   my_file = paste0("output/bests/evolutive_", file, "_", i,".csv")
   aux = t(read.table(my_file, sep = ";", dec = "."))
   aux = aux[2:length(aux)]
@@ -87,7 +88,7 @@ for (i in 66) {
   bests.ev = rbind(bests.ev, df)
 }
 
-ggscatter(bests.ev,
+ggline(bests.ev,
           x = "x",
           y = "aux",
           color = "sol")
@@ -99,6 +100,18 @@ which.min(ev$V3)
 
 sa$V3 = as.numeric(gsub(",", ".", sa$V3))
 which.min(sa$V3)
+
+
+# Space
+space.sa = data.frame()
+for (i in 101) {
+  my_file = paste0("output/space/sa_", file, "_space_", i,".csv")
+  aux = t(read.table(my_file, sep = ";", dec = "."))
+  aux = as.numeric(gsub(",", ".", aux))
+  print(aux)
+}
+
+
 
 
 
