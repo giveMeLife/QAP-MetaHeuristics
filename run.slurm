@@ -12,7 +12,7 @@
 ml R/4.0.0
 
 heuristic='SA'
-file='kra32.dat'
+file='esc64a.txt'
 workdir='/home/jarredondo/projects/QAP/'
 Rscript --vanilla main.R $file 'SA' ${SLURM_ARRAY_TASK_ID} $workdir
-Rscript --vanilla main.R $file 'evolutive' ${SLURM_ARRAY_TASK_ID} $workdir
+#Rscript --vanilla main.R $file 'evolutive' ${SLURM_ARRAY_TASK_ID} $workdir

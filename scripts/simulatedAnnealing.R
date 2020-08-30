@@ -14,8 +14,8 @@ simulatedAnnealing <- function(instancia, sol, Tmax, Tmin, it, beta, prefix="", 
       cost <- evaluarQAP(neighbor, instancia$f, instancia$d)
       delta_E <- cost - actualCost
       
-      space <- rbind(space, c(n, actualCost, actualSolution))
-      space <- rbind(space, c(neighbor, n, cost))
+      space <- rbind(space, actualSolution)
+      space <- rbind(space, neighbor)
       
       if(delta_E <= 0){
         actualCost <- cost
